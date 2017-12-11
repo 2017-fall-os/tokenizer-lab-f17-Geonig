@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "token.c"
+//#include <sys/time.h>
+//#include <assert.h>
+
+int mytoken(char *str, char delim );
+int countWords(char *str);
+
+int wordcount; 
+
+int main(){
+
+  char *test = " wert cjbvj djfvj zkdn   ";
+
+  int wordcount;
+
+  wordcount = mytoken(test, ' ');
+   
+  printf("The words count is %i", wordcount);
+}
+
+
+int mytoken(char *str, char delim){
+
+int count = 0;
+int words = 0;
+int length = 0;
+
+
+struct Token newToken;
+
+ words = countWords(str); 
+
+ 
+ length = 0;
+
+
+ 
+ struct Token tokens[words+1];
+
+
+ 
+ while(str[length] != '\0'){
+
+  if(str[length] != ' '){    
+
+      if (count == 0){
+
+       words++;
+
+      }
+      count++;
+      
+  }
+
+  else{
+    if(count > 0){
+      
+      int wordsize = length-count;
+
+      newToken.string = malloc(count);
+
+      int x = 0; 
+    
+      while(str[wordsize] != ' '){
+
+
+	newToken.string[x] = str[wordsize];
+
+	wordsize++;
+	x++;
+      }
+
+      
+       tokens[words] = newToken;
+
+
+        count = 0;
+    }
+  }
+
+  length++; 
+
+} 
+
+
+ return words; 
+
+}
+
+
+
+
+
+int countWords(char *str){
+  int length = 0;
+  int count =0;
+  int words = 0; 
+  
+ while(str[length] != '\0'){
+
+  if(str[length] != ' '){
+
+    if (count == 0){
+
+      words++;
+
+    }
+      count++;
+  }
+
+  else{
+
+    if(count > 0) count = 0;
+    
+  }
+
+  length++; 
+
+}
+
+ return words;
+
+}

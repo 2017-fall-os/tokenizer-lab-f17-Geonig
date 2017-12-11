@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+char ** mytoken(char *str, char delim );
+int countWords(char *str);
+
+int wordcount;
+
+
+
+char ** mytoken(char *str, char delim){
+
+int count = 0;
+int words = 0;
+int length = 0;
+
+
+int words2 = countWords(str);
+
+// printf("It has %i \n", words2); 
+ 
+ char ** tokens = malloc((sizeof(char*) * words2)+1); 
+
+
+ do{
+
+   if(str[length] != ' ' ){    
+
+      if (count == 0){
+	
+	 words++;
+      }
+      count++;
+
+  }
+
+  else if(count > 0 ){
+      
+      int wordsize = length-count;
+      
+      char *newToken = malloc((sizeof(char) * count));
+      
+      int x = 0; 
+      
+      while(str[wordsize] != ' '){
+		
+	newToken[x] = str[wordsize];
+	
+	wordsize++;
+	
+	x++;
+      }
+      
+      tokens[words-1] = newToken;
+       
+      count = 0; 
+    } 
+  
+  length++; 
+  
+ } while(str[length] != '\0');
+
+
+
+ tokens[words] = '\0';
+ 
+ return tokens; 
+ 
+}
+
+
+
+
+
+int countWords(char *str){
+  int length = 0;
+  int count =0;
+  int words = 0; 
+  
+ while(str[length] != '\0'){
+
+  if(str[length] != ' '){
+
+    if (count == 0){
+
+      words++;
+
+    }
+      count++;
+  }
+
+  else{
+
+    if(count > 0) count = 0;
+    
+  }
+
+  length++; 
+
+}
+
+ return words;
+
+}
